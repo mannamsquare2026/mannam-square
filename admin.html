@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>만남의 광장 — 어드민</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F4610A;
+      --orange-light: #FF8C42;
+      --orange-dark: #C44D08;
+      --cream: #FFF8F2;
+      --dark: #1A1208;
+      --mid: #6B4226;
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+    }
+    .badge {
+      font-size: 12px;
+      background: var(--orange);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .sub {
+      font-size: 15px;
+      color: var(--mid);
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      margin: 0 auto 40px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 16px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(244,97,10,0.35);
+      transition: all 0.18s ease;
+      letter-spacing: -0.3px;
+    }
+    .btn:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(244,97,10,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #C0A090;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="logo">만남의 광장</span>
+    <span class="badge">Admin</span>
+  </nav>
+
+  <div class="main">
+    <p class="eyebrow">관리자 페이지</p>
+    <h1>대시보드</h1>
+    <p class="sub">랜딩페이지 사용자 행동 데이터를 확인하세요.</p>
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-title">🔥 Clarity 히트맵</div>
+      <div class="card-desc">사용자 클릭, 스크롤, 세션 녹화를<br>Microsoft Clarity에서 확인합니다.</div>
+      <a class="btn" href="https://clarity.microsoft.com/projects/view/xiovptugxm" target="_blank" rel="noopener">
+        Clarity 열기 →
+      </a>
+    </div>
+  </div>
+
+  <footer>© 2026 만남의 광장 — 관리자 전용</footer>
+
+</body>
+</html>
