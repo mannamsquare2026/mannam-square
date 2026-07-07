@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>만남의 광장 — 물건 등록</title>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xiovptugxm");
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F4610A;
+      --orange-dark: #C44D08;
+      --cream: #FFF8F2;
+      --dark: #1A1208;
+      --mid: #6B4226;
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #F0E0D0;
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo { font-size: 18px; font-weight: 800; color: var(--orange); letter-spacing: -0.5px; text-decoration: none; }
+    .back-link {
+      font-size: 14px; font-weight: 600; color: var(--mid);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--orange); }
+
+    main {
+      flex: 1;
+      max-width: 640px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-eyebrow {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      color: var(--orange); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .page-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .page-sub { font-size: 14px; color: var(--mid); line-height: 1.6; margin-bottom: 40px; }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--orange); text-transform: uppercase;
+      margin: 28px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #F0E0D0;
+    }
+    .section-label:first-child { margin-top: 0; }
+
+    .form-group { margin-bottom: 18px; }
+    label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--dark); margin-bottom: 7px;
+    }
+    label .req { color: var(--orange); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #E8D5C4;
+      border-radius: 10px;
+      font-size: 15px;
+      color: var(--dark);
+      background: #FFFAF7;
+      outline: none;
+      font-family: inherit;
+      transition: border 0.15s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--orange); }
+    textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+    select { appearance: none; cursor: pointer; }
+
+    .price-wrap { position: relative; }
+    .price-wrap input { padding-right: 36px; }
+    .price-unit {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      font-size: 14px; font-weight: 600; color: var(--mid); pointer-events: none;
+    }
+
+    /* 사진 업로드 */
+    .upload-area {
+      border: 2px dashed #E8D5C4;
+      border-radius: 12px;
+      background: #FFFAF7;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      position: relative;
+    }
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--orange);
+      background: #FFF0E6;
+    }
+    .upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
+      width: 100%; height: 100%; border: none; padding: 0; background: none;
+    }
+    .upload-icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-text { font-size: 14px; font-weight: 600; color: var(--mid); }
+    .upload-hint { font-size: 12px; color: #B07A5A; margin-top: 4px; }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .preview-item {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      background: #E8DDD5;
+    }
+    .preview-item img { width: 100%; height: 100%; object-fit: cover; }
+    .preview-item .del {
+      position: absolute; top: 4px; right: 4px;
+      background: rgba(26,18,8,0.6); color: #fff;
+      border: none; border-radius: 50%; width: 20px; height: 20px;
+      font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* 기간 선택 */
+    .radio-group { display: flex; gap: 10px; }
+    .radio-option { flex: 1; }
+    .radio-option input[type="radio"] { display: none; }
+    .radio-option label {
+      display: block; text-align: center;
+      padding: 12px 8px; border: 1.5px solid #E8D5C4;
+      border-radius: 10px; font-size: 14px; font-weight: 600;
+      color: var(--mid); cursor: pointer; transition: all 0.15s;
+      background: #FFFAF7;
+    }
+    .radio-option input[type="radio"]:checked + label {
+      border-color: var(--orange); color: var(--orange); background: #FFF0E6;
+    }
+
+    /* 지역 칩 */
+    .chip-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip-option input[type="checkbox"] { display: none; }
+    .chip-option label {
+      display: inline-block; padding: 8px 16px;
+      border: 1.5px solid #E8D5C4; border-radius: 20px;
+      font-size: 13px; font-weight: 600; color: var(--mid);
+      cursor: pointer; transition: all 0.15s; background: #FFFAF7;
+    }
+    .chip-option input[type="checkbox"]:checked + label {
+      border-color: var(--orange); color: var(--orange); background: #FFF0E6;
+    }
+
+    .submit-btn {
+      width: 100%; margin-top: 32px;
+      padding: 18px; font-size: 16px; font-weight: 700;
+      background: var(--orange); color: #fff; border: none;
+      border-radius: 12px; cursor: pointer; font-family: inherit;
+      box-shadow: 0 4px 16px rgba(244,97,10,0.3);
+      transition: all 0.15s;
+    }
+    .submit-btn:hover { background: var(--orange-dark); transform: translateY(-1px); }
+
+    .hint-text { font-size: 12px; color: #B07A5A; margin-top: 16px; text-align: center; line-height: 1.6; }
+
+    /* 완료 모달 */
+    .overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(26,18,8,0.55); backdrop-filter: blur(4px);
+      z-index: 100; align-items: center; justify-content: center; padding: 24px;
+    }
+    .overlay.active { display: flex; }
+    .modal {
+      background: #fff; border-radius: 20px; padding: 44px 36px; max-width: 400px; width: 100%;
+      text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,0.18); animation: slideUp 0.22s ease;
+    }
+    @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .modal-icon { font-size: 56px; margin-bottom: 16px; }
+    .modal-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .modal-msg { font-size: 14px; color: var(--mid); line-height: 1.8; margin-bottom: 24px; }
+    .modal-highlight {
+      background: #FFF0E6; border-radius: 10px; padding: 14px 16px;
+      font-size: 14px; color: var(--orange); font-weight: 700; margin-bottom: 24px;
+    }
+    .modal-btn {
+      display: inline-block; padding: 14px 32px;
+      background: var(--orange); color: #fff; font-size: 15px; font-weight: 700;
+      border-radius: 12px; text-decoration: none; transition: background 0.15s;
+    }
+    .modal-btn:hover { background: var(--orange-dark); }
+
+    footer { text-align: center; padding: 24px; font-size: 12px; color: #C0A090; border-top: 1px solid #F0E0D0; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">만남의 광장</a>
+  <a class="back-link" href="/market">← 마켓으로 돌아가기</a>
+</nav>
+
+<main>
+  <p class="page-eyebrow">물건 등록</p>
+  <h1 class="page-title">팔고 싶은 물건을<br>올려보세요.</h1>
+  <p class="page-sub">베타 기간에는 검토 후 순차 등록됩니다.<br>낙찰 수수료는 얼리버드 기간 동안 무료입니다.</p>
+
+  <div class="card">
+    <form id="registerForm" onsubmit="handleSubmit(event)" novalidate>
+
+      <div class="section-label">물건 정보</div>
+
+      <div class="form-group">
+        <label>카테고리 <span class="req">*</span></label>
+        <select id="category" required>
+          <option value="" disabled selected>카테고리를 선택하세요</option>
+          <option>주방기기</option>
+          <option>포장재</option>
+          <option>가구·인테리어</option>
+          <option>기타</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>물건명 <span class="req">*</span></label>
+        <input type="text" id="itemName" placeholder="예: 업소용 냉장고 650L" required />
+      </div>
+
+      <div class="form-group">
+        <label>설명 <span class="req">*</span></label>
+        <textarea id="desc" placeholder="사용 기간, 상태, 처분 이유 등을 솔직하게 적어주세요." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>사진</label>
+        <div class="upload-area" id="uploadArea">
+          <input type="file" id="photoInput" accept="image/*" multiple onchange="handleFiles(this.files)" />
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">사진을 클릭하거나 드래그해서 올려주세요</div>
+          <div class="upload-hint">최대 4장 · JPG, PNG, HEIC</div>
+        </div>
+        <div class="preview-grid" id="previewGrid"></div>
+      </div>
+
+      <div class="section-label">경매 조건</div>
+
+      <div class="form-group">
+        <label>시작가 <span class="req">*</span></label>
+        <div class="price-wrap">
+          <input type="text" id="startPrice" placeholder="10,000" required oninput="formatPrice(this)" />
+          <span class="price-unit">원</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>경매 마감 <span class="req">*</span></label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="duration" id="d1" value="1일" />
+            <label for="d1">1일</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="duration" id="d3" value="3일" checked />
+            <label for="d3">3일</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="duration" id="d7" value="7일" />
+            <label for="d7">7일</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>거래 가능 지역 <span class="req">*</span></label>
+        <div class="chip-group">
+          <div class="chip-option">
+            <input type="checkbox" id="loc1" value="송도" />
+            <label for="loc1">송도</label>
+          </div>
+          <div class="chip-option">
+            <input type="checkbox" id="loc2" value="청라" />
+            <label for="loc2">청라</label>
+          </div>
+          <div class="chip-option">
+            <input type="checkbox" id="loc3" value="영종" />
+            <label for="loc3">영종</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">판매자 정보</div>
+
+      <div class="form-group">
+        <label>연락처 <span class="req">*</span></label>
+        <input type="tel" id="phone" placeholder="010-0000-0000" required />
+      </div>
+
+      <button type="submit" class="submit-btn">등록 신청하기 →</button>
+      <p class="hint-text">베타 기간에는 등록 신청 후 검토를 거쳐 순차 업로드됩니다.<br>낙찰 수수료는 얼리버드 기간 동안 <strong>무료</strong>입니다.</p>
+    </form>
+  </div>
+</main>
+
+<footer>© 2026 만남의 광장. 소상공인의 물건이 제자리를 찾도록.</footer>
+
+<!-- 완료 모달 -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-icon">✅</div>
+    <div class="modal-title">등록 신청 완료!</div>
+    <p class="modal-msg">검토 후 순차적으로 마켓에 올려드립니다.<br>보통 1–2 영업일 이내에 안내 연락을 드려요.</p>
+    <div class="modal-highlight">얼리버드 혜택 — 낙찰 수수료 0원 자동 적용</div>
+    <a class="modal-btn" href="/market">마켓 구경하기 →</a>
+  </div>
+</div>
+
+<script>
+  // 사진 미리보기
+  let files = [];
+  function handleFiles(incoming) {
+    const arr = Array.from(incoming).slice(0, 4 - files.length);
+    arr.forEach(f => {
+      if (files.length >= 4) return;
+      files.push(f);
+      const reader = new FileReader();
+      reader.onload = e => addPreview(e.target.result, files.length - 1);
+      reader.readAsDataURL(f);
+    });
+  }
+  function addPreview(src, idx) {
+    const grid = document.getElementById('previewGrid');
+    const item = document.createElement('div');
+    item.className = 'preview-item';
+    item.dataset.idx = idx;
+    item.innerHTML = `<img src="${src}" /><button class="del" onclick="removePreview(${idx})">✕</button>`;
+    grid.appendChild(item);
+  }
+  function removePreview(idx) {
+    files.splice(idx, 1);
+    const grid = document.getElementById('previewGrid');
+    grid.innerHTML = '';
+    const saved = [...files];
+    files = [];
+    saved.forEach((f, i) => {
+      files.push(f);
+      const reader = new FileReader();
+      reader.onload = e => addPreview(e.target.result, i);
+      reader.readAsDataURL(f);
+    });
+  }
+
+  // 드래그앤드롭
+  const area = document.getElementById('uploadArea');
+  area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
+  area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+  area.addEventListener('drop', e => {
+    e.preventDefault(); area.classList.remove('dragover');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  // 가격 콤마
+  function formatPrice(el) {
+    const raw = el.value.replace(/[^0-9]/g, '');
+    el.value = raw ? Number(raw).toLocaleString() : '';
+  }
+
+  // 제출
+  function handleSubmit(e) {
+    e.preventDefault();
+    const locs = [...document.querySelectorAll('.chip-option input:checked')].map(c => c.value);
+    if (!locs.length) { alert('거래 가능 지역을 하나 이상 선택해 주세요.'); return; }
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = '신청 중...'; btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('overlay').classList.add('active');
+    }, 900);
+  }
+</script>
+</body>
+</html>
