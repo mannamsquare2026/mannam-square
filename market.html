@@ -59,7 +59,8 @@
     .card.sold { opacity: .75; filter: grayscale(.4); pointer-events: none; }
     .card.sold:hover { transform: none; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
 
-    .card-img { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg,#E8DDD5,#D4C4B8); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-img { width: 100%; height: 200px; background: linear-gradient(135deg,#E8DDD5,#D4C4B8); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .card-img svg { opacity: .35; }
     .card-img .tag { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 700; background: var(--orange); color: #fff; padding: 3px 9px; border-radius: 20px; }
     .card-img .tag.sold-tag { background: #888; }
@@ -113,6 +114,10 @@
     .toast.out { animation: toastOut .3s ease forwards; }
     @keyframes toastIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
     @keyframes toastOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(8px)} }
+
+    /* PLATFORM GUARD */
+    .platform-warning { background: #FFF0F0; border: 1.5px solid #E03030; border-radius: 10px; padding: 10px 14px; font-size: 12px; color: #C00; font-weight: 600; line-height: 1.5; margin-top: 8px; display: none; }
+    .modal-platform-note { background: #F5F5F5; border-radius: 8px; padding: 10px 14px; font-size: 12px; color: #888; line-height: 1.5; margin-top: 12px; }
 
     /* MODALS */
     .overlay { display: none; position: fixed; inset: 0; background: rgba(26,18,8,.55); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
@@ -178,7 +183,7 @@
     <!-- 카드 1 -->
     <div class="card" id="card0" data-cat="주방기기" data-current="32000" data-buyout="50000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="7" width="20" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400" alt="업소용 프라이어" />
         <span class="tag" id="tag0">경매 중</span>
         <span class="bid-count-badge">입찰 3건</span>
       </div>
@@ -212,7 +217,7 @@
     <!-- 카드 2 -->
     <div class="card" id="card1" data-cat="포장재" data-current="15500" data-buyout="28000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        <img src="https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?w=400" alt="단파지 박스" />
         <span class="tag" id="tag1">경매 중</span>
         <span class="bid-count-badge">입찰 1건</span>
       </div>
@@ -246,7 +251,7 @@
     <!-- 카드 3 -->
     <div class="card" id="card2" data-cat="주방기기" data-current="280000" data-buyout="450000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><path d="M7 3v6M12 3v6M17 3v6"/></svg>
+        <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400" alt="업소용 냉장고" />
         <span class="tag" id="tag2">경매 중</span>
         <span class="bid-count-badge">입찰 7건</span>
       </div>
@@ -280,7 +285,7 @@
     <!-- 카드 4 -->
     <div class="card" id="card3" data-cat="주방기기" data-current="120000" data-buyout="200000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+        <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400" alt="업소용 에어컨" />
         <span class="tag" id="tag3">경매 중</span>
         <span class="bid-count-badge">입찰 2건</span>
       </div>
@@ -314,7 +319,7 @@
     <!-- 카드 5 -->
     <div class="card" id="card4" data-cat="가구·인테리어" data-current="95000" data-buyout="160000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M20 9V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1H6v-1a2 2 0 0 0-4 0z"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/></svg>
+        <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400" alt="카페 테이블 세트" />
         <span class="tag" id="tag4">경매 중</span>
         <span class="bid-count-badge">입찰 5건</span>
       </div>
@@ -348,7 +353,7 @@
     <!-- 카드 6 -->
     <div class="card" id="card5" data-cat="주방기기" data-current="450000" data-buyout="600000">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M2 12h6"/></svg>
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" alt="제빵 오븐" />
         <span class="tag" id="tag5">경매 중</span>
         <span class="bid-count-badge">입찰 4건</span>
       </div>
@@ -401,6 +406,7 @@
         <div class="form-group"><label>연락처</label><input type="tel" id="bidPhone" placeholder="010-0000-0000" required /></div>
         <button type="submit" class="submit-btn">입찰 신청하기 →</button>
       </form>
+      <div class="modal-platform-note">⚠️ 플랫폼 외부 거래 시 구매자 보호를 받을 수 없습니다. 낙찰 후 연락처는 플랫폼을 통해 전달됩니다.</div>
     </div>
     <div class="success" id="bidSuccessView">
       <div class="success-icon">🎉</div>
@@ -427,11 +433,13 @@
         <div class="form-group"><label>연락처</label><input type="tel" id="buyoutPhone" placeholder="010-0000-0000" required /></div>
         <button type="submit" class="submit-btn" style="background:#1A1208">즉시낙찰 확정하기 →</button>
       </form>
+      <div class="modal-platform-note">⚠️ 플랫폼 외부 거래 시 구매자 보호를 받을 수 없습니다. 낙찰 후 연락처는 플랫폼을 통해 전달됩니다.</div>
     </div>
     <div class="success" id="buyoutSuccessView">
       <div class="success-icon">🏆</div>
       <div class="success-title">낙찰되었습니다!</div>
       <p class="success-msg">판매자가 24시간 내 연락드립니다.<br>등록하신 연락처를 확인해 주세요.<br><br><strong style="color:var(--orange)">베타 기간 수수료 0원</strong> 적용 중.</p>
+      <div class="modal-platform-note" style="text-align:left;margin-top:16px">⚠️ 플랫폼 외부 거래 시 구매자 보호를 받을 수 없습니다. 낙찰 후 연락처는 플랫폼을 통해 전달됩니다.</div>
     </div>
   </div>
 </div>
@@ -598,6 +606,12 @@
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeBid(); closeBuyout(); }
+  });
+
+  /* ── 카드 설명 연락처 마스킹 ── */
+  const contactPattern = /(\d{2,4}[-\s]?\d{3,4}[-\s]?\d{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|카카오|카톡|kakao|open\.kakao|톡아이디)/gi;
+  document.querySelectorAll('.card-desc').forEach(el => {
+    el.textContent = el.textContent.replace(contactPattern, '***-****-****');
   });
 </script>
 </body>
