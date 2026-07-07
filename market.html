@@ -62,9 +62,22 @@
     .card-img { width: 100%; height: 200px; background: linear-gradient(135deg,#E8DDD5,#D4C4B8); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .card-img svg { opacity: .35; }
+
+    /* D-DAY 배지 */
     .card-img .tag { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 700; background: var(--orange); color: #fff; padding: 3px 9px; border-radius: 20px; }
     .card-img .tag.sold-tag { background: #888; }
-    .card-img .bid-count-badge { position: absolute; top: 12px; right: 12px; font-size: 11px; font-weight: 700; background: rgba(26,18,8,.6); color: #fff; padding: 3px 9px; border-radius: 20px; }
+    .card-img .tag.dday-today { background: #E03030; }
+    .card-img .tag.dday-tomorrow { background: #D07000; }
+    .card-img .tag.dday-ok { background: #2E8B57; }
+
+    /* 찜하기 버튼 */
+    .btn-wish { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.92); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 17px; transition: transform .15s; backdrop-filter: blur(4px); box-shadow: 0 2px 8px rgba(0,0,0,.12); z-index: 2; }
+    .btn-wish:hover { transform: scale(1.18); }
+
+    /* 라이브 뷰어 카운터 */
+    .viewer-count { position: absolute; bottom: 10px; left: 10px; font-size: 11px; font-weight: 700; background: rgba(26,18,8,0.62); color: #fff; padding: 3px 9px 3px 7px; border-radius: 20px; display: flex; align-items: center; gap: 4px; pointer-events: none; }
+    .viewer-count svg { width: 11px; height: 11px; flex-shrink: 0; }
+
     .sold-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; }
     .sold-label { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; border: 3px solid #fff; padding: 6px 18px; border-radius: 8px; }
 
@@ -94,6 +107,7 @@
     /* CARD FOOTER */
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
     .bid-count { font-size: 12px; color: var(--mid); font-weight: 600; }
+    .wish-count { font-size: 12px; color: #C0806A; font-weight: 600; }
     .btn-bid { padding: 10px 20px; font-size: 14px; font-weight: 700; background: var(--orange); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: all .15s; }
     .btn-bid:hover { background: var(--orange-dark); transform: translateY(-1px); }
     .btn-bid:disabled, .btn-buyout:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
@@ -105,6 +119,13 @@
     .buyout-price { font-size: 14px; font-weight: 700; color: var(--dark); }
     .btn-buyout { padding: 8px 16px; font-size: 13px; font-weight: 700; background: #fff; color: var(--orange); border: 1.5px solid var(--orange); border-radius: 10px; cursor: pointer; font-family: inherit; transition: all .15s; }
     .btn-buyout:hover { background: #FFF0E6; transform: translateY(-1px); }
+
+    /* 공유 버튼 */
+    .share-row { display: flex; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #F5EDE4; }
+    .btn-share { flex: 1; padding: 8px 4px; font-size: 12px; font-weight: 700; border: 1.5px solid #E8D5C4; border-radius: 8px; background: #fff; color: var(--mid); cursor: pointer; font-family: inherit; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .btn-share:hover { border-color: var(--orange); color: var(--orange); }
+    .btn-share.kakao { background: #FEE500; border-color: #FEE500; color: #3C1E1E; }
+    .btn-share.kakao:hover { background: #F0D800; border-color: #F0D800; }
 
     .no-results { grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--mid); font-size: 15px; }
 
@@ -185,7 +206,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400" alt="업소용 프라이어" />
         <span class="tag" id="tag0">경매 중</span>
-        <span class="bid-count-badge">입찰 3건</span>
+        <button class="btn-wish" id="wish0" onclick="toggleWish(0)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc0">5</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -201,7 +226,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t0"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 3건</span>
+          <div><span class="bid-count">입찰 3건</span><span class="wish-count" id="wc0" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid0" onclick="openBid(0,'업소용 프라이어','32,000')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -211,6 +236,16 @@
           </div>
           <button class="btn-buyout" id="buyout0" onclick="openBuyout(0,'업소용 프라이어','50,000')">즉시낙찰 →</button>
         </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(0)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(0)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
+        </div>
       </div>
     </div>
 
@@ -219,7 +254,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1609709295948-17d77cb2a69b?w=400" alt="단파지 박스" />
         <span class="tag" id="tag1">경매 중</span>
-        <span class="bid-count-badge">입찰 1건</span>
+        <button class="btn-wish" id="wish1" onclick="toggleWish(1)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc1">3</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">포장재</div>
@@ -235,7 +274,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t1"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 1건</span>
+          <div><span class="bid-count">입찰 1건</span><span class="wish-count" id="wc1" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid1" onclick="openBid(1,'단파지 박스 200개','15,500')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -245,6 +284,16 @@
           </div>
           <button class="btn-buyout" id="buyout1" onclick="openBuyout(1,'단파지 박스 200개','28,000')">즉시낙찰 →</button>
         </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(1)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(1)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
+        </div>
       </div>
     </div>
 
@@ -253,7 +302,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400" alt="업소용 냉장고" />
         <span class="tag" id="tag2">경매 중</span>
-        <span class="bid-count-badge">입찰 7건</span>
+        <button class="btn-wish" id="wish2" onclick="toggleWish(2)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc2">7</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -269,7 +322,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t2"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 7건</span>
+          <div><span class="bid-count">입찰 7건</span><span class="wish-count" id="wc2" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid2" onclick="openBid(2,'업소용 냉장고 650L','280,000')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -279,6 +332,16 @@
           </div>
           <button class="btn-buyout" id="buyout2" onclick="openBuyout(2,'업소용 냉장고 650L','450,000')">즉시낙찰 →</button>
         </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(2)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(2)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
+        </div>
       </div>
     </div>
 
@@ -287,7 +350,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=400" alt="업소용 에어컨" />
         <span class="tag" id="tag3">경매 중</span>
-        <span class="bid-count-badge">입찰 2건</span>
+        <button class="btn-wish" id="wish3" onclick="toggleWish(3)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc3">4</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -303,7 +370,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t3"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 2건</span>
+          <div><span class="bid-count">입찰 2건</span><span class="wish-count" id="wc3" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid3" onclick="openBid(3,'업소용 에어컨 5마력','120,000')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -313,6 +380,16 @@
           </div>
           <button class="btn-buyout" id="buyout3" onclick="openBuyout(3,'업소용 에어컨 5마력','200,000')">즉시낙찰 →</button>
         </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(3)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(3)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
+        </div>
       </div>
     </div>
 
@@ -321,7 +398,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400" alt="카페 테이블 세트" />
         <span class="tag" id="tag4">경매 중</span>
-        <span class="bid-count-badge">입찰 5건</span>
+        <button class="btn-wish" id="wish4" onclick="toggleWish(4)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc4">6</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">가구·인테리어</div>
@@ -337,7 +418,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t4"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 5건</span>
+          <div><span class="bid-count">입찰 5건</span><span class="wish-count" id="wc4" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid4" onclick="openBid(4,'카페 테이블 4인용 2세트','95,000')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -347,6 +428,16 @@
           </div>
           <button class="btn-buyout" id="buyout4" onclick="openBuyout(4,'카페 테이블 4인용 2세트','160,000')">즉시낙찰 →</button>
         </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(4)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(4)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
+        </div>
       </div>
     </div>
 
@@ -355,7 +446,11 @@
       <div class="card-img">
         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400" alt="제빵 오븐" />
         <span class="tag" id="tag5">경매 중</span>
-        <span class="bid-count-badge">입찰 4건</span>
+        <button class="btn-wish" id="wish5" onclick="toggleWish(5)" title="찜하기">🤍</button>
+        <div class="viewer-count">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span id="vc5">8</span>명
+        </div>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -371,7 +466,7 @@
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t5"></div></div>
         </div>
         <div class="card-footer">
-          <span class="bid-count">입찰 4건</span>
+          <div><span class="bid-count">입찰 4건</span><span class="wish-count" id="wc5" style="margin-left:8px"></span></div>
           <button class="btn-bid" id="bid5" onclick="openBid(5,'제빵 오븐 (데크형)','450,000')">입찰하기 →</button>
         </div>
         <div class="buyout-row">
@@ -380,6 +475,16 @@
             <span class="buyout-price">600,000원</span>
           </div>
           <button class="btn-buyout" id="buyout5" onclick="openBuyout(5,'제빵 오븐 (데크형)','600,000')">즉시낙찰 →</button>
+        </div>
+        <div class="share-row">
+          <button class="btn-share kakao" onclick="shareKakao(5)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.477 3 2 6.477 2 10.8c0 2.748 1.617 5.163 4.057 6.625L5.1 21l4.536-2.399C10.024 18.753 11 18.9 12 18.9c5.523 0 10-3.477 10-7.8S17.523 3 12 3z"/></svg>
+            카카오 공유
+          </button>
+          <button class="btn-share" onclick="copyLink(5)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            링크 복사
+          </button>
         </div>
       </div>
     </div>
@@ -467,6 +572,93 @@
   }
   tick(); setInterval(tick, 1000);
 
+  /* ── D-day 배지 ── */
+  (function initDdayBadges() {
+    const offsetsH = [47.5, 0.7, 71, 26, 3.2, 53];
+    offsetsH.forEach((h, i) => {
+      const tag = document.getElementById('tag' + i);
+      if (!tag) return;
+      if (h < 24) {
+        tag.textContent = '오늘 마감';
+        tag.className = 'tag dday-today';
+      } else if (h < 48) {
+        tag.textContent = '내일 마감';
+        tag.className = 'tag dday-tomorrow';
+      } else {
+        tag.textContent = `D-${Math.ceil(h / 24)}`;
+        tag.className = 'tag dday-ok';
+      }
+    });
+  })();
+
+  /* ── 라이브 뷰어 카운터 ── */
+  const initViewers = [5, 3, 7, 4, 6, 8];
+  function scheduleViewerUpdate(i) {
+    setTimeout(() => {
+      const vc = document.getElementById('vc' + i);
+      if (vc) vc.textContent = Math.floor(Math.random() * 6) + 3;
+      scheduleViewerUpdate(i);
+    }, 10000 + Math.random() * 20000);
+  }
+  for (let i = 0; i < 6; i++) scheduleViewerUpdate(i);
+
+  /* ── 찜하기 ── */
+  const WISH_KEY = 'mannam_wish';
+  const wishBase = [4, 1, 9, 2, 6, 3];
+
+  function getWishes() {
+    try { return JSON.parse(localStorage.getItem(WISH_KEY)) || []; } catch(e) { return []; }
+  }
+  function saveWishes(arr) { localStorage.setItem(WISH_KEY, JSON.stringify(arr)); }
+
+  function renderWishes() {
+    const wished = getWishes();
+    for (let i = 0; i < 6; i++) {
+      const btn = document.getElementById('wish' + i);
+      const wc = document.getElementById('wc' + i);
+      if (btn) btn.textContent = wished.includes(i) ? '❤️' : '🤍';
+      if (wc) {
+        const total = wishBase[i] + (wished.includes(i) ? 1 : 0);
+        wc.textContent = `찜 ${total}`;
+      }
+    }
+  }
+
+  function toggleWish(idx) {
+    const wished = getWishes();
+    const pos = wished.indexOf(idx);
+    if (pos === -1) {
+      wished.push(idx);
+      showInfoToast('찜 목록에 추가했습니다 ❤️');
+    } else {
+      wished.splice(pos, 1);
+    }
+    saveWishes(wished);
+    renderWishes();
+  }
+  renderWishes();
+
+  /* ── 공유 버튼 ── */
+  const cardNames = ['업소용 프라이어','단파지 박스 200개','업소용 냉장고 650L','업소용 에어컨 5마력','카페 테이블 4인용 2세트','제빵 오븐 (데크형)'];
+
+  function shareKakao(idx) {
+    const url = window.location.href.split('#')[0];
+    if (navigator.share) {
+      navigator.share({ title: `만남의 광장 — ${cardNames[idx]}`, url }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(`만남의 광장에서 ${cardNames[idx]} 발견! ${url}`)
+        .then(() => showInfoToast('카카오톡에 붙여넣기 하세요! 📋'))
+        .catch(() => showInfoToast('카카오톡 앱에서 링크를 공유해보세요 📱'));
+    }
+  }
+
+  function copyLink(idx) {
+    const url = window.location.href.split('#')[0] + '#card' + idx;
+    navigator.clipboard.writeText(url)
+      .then(() => showInfoToast('링크가 복사됐습니다 ✓'))
+      .catch(() => showInfoToast('주소창의 링크를 복사해주세요'));
+  }
+
   /* ── sticky 헤더 ── */
   window.addEventListener('scroll', () => {
     document.getElementById('mainNav').classList.toggle('compact', window.scrollY > 60);
@@ -500,7 +692,7 @@
 
     const tag = document.getElementById('tag' + idx);
     tag.textContent = '낙찰완료';
-    tag.classList.add('sold-tag');
+    tag.className = 'tag sold-tag';
 
     const imgEl = card.querySelector('.card-img');
     const overlay = document.createElement('div');
@@ -592,17 +784,28 @@
     { nick: '미추홀사장', item: '업소용 에어컨 5마력', price: '128,000' },
   ];
   let toastIdx = 0;
-  function showToast() {
-    const d = toastData[toastIdx++ % toastData.length];
+
+  function _showToast(msg, bg, shadow) {
     const wrap = document.getElementById('toastWrap');
     const el = document.createElement('div');
     el.className = 'toast';
-    el.textContent = `방금 ${d.nick}님이 ${d.item}에 ${d.price}원 입찰했습니다`;
+    if (bg) { el.style.background = bg; el.style.boxShadow = shadow || '0 6px 24px rgba(0,0,0,.25)'; }
+    el.textContent = msg;
     wrap.appendChild(el);
-    setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, 3000);
+    setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, bg ? 2500 : 3000);
   }
-  function scheduleToast() { setTimeout(() => { showToast(); scheduleToast(); }, 3000 + Math.random() * 2000); }
-  setTimeout(scheduleToast, 2000);
+
+  function showToast(msg) { _showToast(msg); }
+  function showInfoToast(msg) { _showToast(msg, '#1A1208'); }
+
+  function scheduleBidToast() {
+    setTimeout(() => {
+      const d = toastData[toastIdx++ % toastData.length];
+      showToast(`방금 ${d.nick}님이 ${d.item}에 ${d.price}원 입찰했습니다`);
+      scheduleBidToast();
+    }, 3000 + Math.random() * 2000);
+  }
+  setTimeout(scheduleBidToast, 2000);
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeBid(); closeBuyout(); }
