@@ -13,223 +13,112 @@
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --orange: #F4610A;
-      --orange-dark: #C44D08;
-      --cream: #FFF8F2;
-      --dark: #1A1208;
-      --mid: #6B4226;
+      --orange: #F4610A; --orange-dark: #C44D08;
+      --cream: #FFF8F2; --dark: #1A1208; --mid: #6B4226;
     }
+    body { font-family: 'Apple SD Gothic Neo','Noto Sans KR',sans-serif; background: var(--cream); color: var(--dark); min-height: 100vh; display: flex; flex-direction: column; }
 
-    body {
-      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-      background: var(--cream);
-      color: var(--dark);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── STICKY NAV ── */
-    nav {
-      padding: 20px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #F0E0D0;
-      background: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      transition: padding 0.25s ease;
-    }
+    /* NAV */
+    nav { padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #F0E0D0; background: #fff; position: sticky; top: 0; z-index: 50; transition: padding .25s; }
     nav.compact { padding: 12px 32px; }
-
-    .logo {
-      font-size: 27px;
-      font-weight: 800;
-      color: var(--orange);
-      letter-spacing: -0.5px;
-      text-decoration: none;
-      transition: font-size 0.25s ease;
-    }
+    .logo { font-size: 27px; font-weight: 800; color: var(--orange); letter-spacing: -.5px; text-decoration: none; transition: font-size .25s; }
     nav.compact .logo { font-size: 18px; }
-
     .nav-right { display: flex; align-items: center; gap: 12px; }
     .badge { font-size: 12px; background: #FFF0E6; color: var(--orange); padding: 4px 10px; border-radius: 20px; font-weight: 600; }
-    .btn-register {
-      padding: 10px 20px; font-size: 14px; font-weight: 700;
-      background: var(--orange); color: #fff; border: none; border-radius: 10px;
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-      text-decoration: none; display: inline-block;
-    }
+    .btn-register { padding: 10px 20px; font-size: 14px; font-weight: 700; background: var(--orange); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: all .15s; text-decoration: none; display: inline-block; }
     .btn-register:hover { background: var(--orange-dark); transform: translateY(-1px); }
 
-    /* ── MAIN ── */
     main { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 36px 24px 60px; }
 
-    /* ── SEARCH ── */
-    .search-wrap { position: relative; margin-bottom: 16px; }
-    .search-wrap input {
-      width: 100%; padding: 14px 20px 14px 20px;
-      border: 1.5px solid #E8D5C4; border-radius: 12px;
-      font-size: 15px; color: var(--dark); background: #fff;
-      outline: none; font-family: inherit; transition: border 0.15s;
-    }
+    /* SEARCH */
+    .search-wrap { margin-bottom: 16px; }
+    .search-wrap input { width: 100%; padding: 14px 20px; border: 1.5px solid #E8D5C4; border-radius: 12px; font-size: 15px; color: var(--dark); background: #fff; outline: none; font-family: inherit; transition: border .15s; }
     .search-wrap input:focus { border-color: var(--orange); }
 
-    /* ── STATUS BANNER ── */
-    .status-banner {
-      background: var(--orange);
-      color: #fff;
-      border-radius: 10px;
-      padding: 11px 20px;
-      font-size: 13px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 16px;
-      letter-spacing: 0.1px;
-    }
-    .status-banner span { opacity: 0.75; margin: 0 8px; }
+    /* BANNER */
+    .status-banner { background: var(--orange); color: #fff; border-radius: 10px; padding: 11px 20px; font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 16px; }
+    .status-banner span { opacity: .75; margin: 0 8px; }
 
-    /* ── FILTER TABS ── */
+    /* TABS */
     .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
-    .tab {
-      padding: 8px 16px; font-size: 13px; font-weight: 600;
-      border: 1.5px solid #E8D5C4; border-radius: 20px;
-      background: #fff; color: var(--mid); cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
+    .tab { padding: 8px 16px; font-size: 13px; font-weight: 600; border: 1.5px solid #E8D5C4; border-radius: 20px; background: #fff; color: var(--mid); cursor: pointer; font-family: inherit; transition: all .15s; }
     .tab:hover { border-color: var(--orange); color: var(--orange); }
     .tab.active { background: var(--orange); border-color: var(--orange); color: #fff; }
 
     .section-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
-    .section-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .section-title { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
     .section-count { font-size: 14px; color: var(--mid); }
 
-    /* ── GRID ── */
+    /* GRID */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
-    /* ── CARD ── */
-    .card {
-      background: #fff; border-radius: 16px; overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: flex; flex-direction: column;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.14);
-    }
+    /* CARD */
+    .card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.07); transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.14); }
+    .card.sold { opacity: .75; filter: grayscale(.4); pointer-events: none; }
+    .card.sold:hover { transform: none; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
 
-    .card-img {
-      width: 100%; aspect-ratio: 4/3;
-      background: linear-gradient(135deg, #E8DDD5 0%, #D4C4B8 100%);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
-    }
-    .card-img svg { opacity: 0.35; }
-    .card-img .tag {
-      position: absolute; top: 12px; left: 12px;
-      font-size: 11px; font-weight: 700; background: var(--orange); color: #fff;
-      padding: 3px 9px; border-radius: 20px;
-    }
-    .card-img .bid-count-badge {
-      position: absolute; top: 12px; right: 12px;
-      font-size: 11px; font-weight: 700; background: rgba(26,18,8,0.6); color: #fff;
-      padding: 3px 9px; border-radius: 20px;
-    }
+    .card-img { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg,#E8DDD5,#D4C4B8); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-img svg { opacity: .35; }
+    .card-img .tag { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 700; background: var(--orange); color: #fff; padding: 3px 9px; border-radius: 20px; }
+    .card-img .tag.sold-tag { background: #888; }
+    .card-img .bid-count-badge { position: absolute; top: 12px; right: 12px; font-size: 11px; font-weight: 700; background: rgba(26,18,8,.6); color: #fff; padding: 3px 9px; border-radius: 20px; }
+    .sold-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; }
+    .sold-label { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px; border: 3px solid #fff; padding: 6px 18px; border-radius: 8px; }
 
     .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
     .card-category { font-size: 11px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 1px; }
-    .card-name { font-size: 17px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.3; }
+    .card-name { font-size: 17px; font-weight: 800; letter-spacing: -.5px; line-height: 1.3; }
     .card-desc { font-size: 13px; color: var(--mid); line-height: 1.55; }
     .card-divider { height: 1px; background: #F0E0D0; margin: 4px 0; }
 
-    /* ── PROGRESS BAR ── */
+    /* PROGRESS */
     .progress-wrap { margin: 4px 0 2px; }
-    .progress-label {
-      display: flex; justify-content: space-between;
-      font-size: 11px; color: #B07A5A; margin-bottom: 5px;
-    }
-    .progress-track {
-      width: 100%; height: 5px; background: #F0E0D0; border-radius: 10px; overflow: hidden;
-    }
-    .progress-bar {
-      height: 100%; background: var(--orange); border-radius: 10px;
-      transition: width 0.4s ease;
-    }
+    .progress-label { display: flex; justify-content: space-between; font-size: 11px; color: #B07A5A; margin-bottom: 5px; }
+    .progress-track { width: 100%; height: 5px; background: #F0E0D0; border-radius: 10px; overflow: hidden; }
+    .progress-bar { height: 100%; background: var(--orange); border-radius: 10px; transition: width .4s; }
 
     .card-meta { display: flex; justify-content: space-between; align-items: flex-end; }
     .bid-label { font-size: 11px; color: #B07A5A; margin-bottom: 2px; }
-    .bid-price { font-size: 22px; font-weight: 800; color: var(--orange); letter-spacing: -0.5px; }
+    .bid-price { font-size: 22px; font-weight: 800; color: var(--orange); letter-spacing: -.5px; }
     .bid-price span { font-size: 13px; font-weight: 600; }
 
     .timer-wrap { text-align: right; }
     .timer-label { font-size: 11px; color: #B07A5A; margin-bottom: 2px; }
-    .timer {
-      font-size: 15px; font-weight: 700; color: var(--dark);
-      font-variant-numeric: tabular-nums;
-      display: inline-block;
-    }
-    .timer.urgent {
-      color: #E03030;
-      animation: shake 0.4s ease infinite;
-    }
-    @keyframes shake {
-      0%,100% { transform: translateX(0); }
-      25%      { transform: translateX(-2px); }
-      75%      { transform: translateX(2px); }
-    }
+    .timer { font-size: 15px; font-weight: 700; color: var(--dark); font-variant-numeric: tabular-nums; display: inline-block; }
+    .timer.urgent { color: #E03030; animation: shake .4s ease infinite; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-2px)} 75%{transform:translateX(2px)} }
 
+    /* CARD FOOTER */
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
     .bid-count { font-size: 12px; color: var(--mid); font-weight: 600; }
-    .btn-bid {
-      padding: 10px 20px; font-size: 14px; font-weight: 700;
-      background: var(--orange); color: #fff; border: none; border-radius: 10px;
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
+    .btn-bid { padding: 10px 20px; font-size: 14px; font-weight: 700; background: var(--orange); color: #fff; border: none; border-radius: 10px; cursor: pointer; font-family: inherit; transition: all .15s; }
     .btn-bid:hover { background: var(--orange-dark); transform: translateY(-1px); }
+    .btn-bid:disabled, .btn-buyout:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
+
+    /* BUYOUT ROW */
+    .buyout-row { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #F0E0D0; }
+    .buyout-price-wrap { display: flex; align-items: center; gap: 6px; }
+    .buyout-badge { font-size: 10px; font-weight: 700; background: #FFF0E6; color: var(--orange); padding: 2px 7px; border-radius: 10px; }
+    .buyout-price { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .btn-buyout { padding: 8px 16px; font-size: 13px; font-weight: 700; background: #fff; color: var(--orange); border: 1.5px solid var(--orange); border-radius: 10px; cursor: pointer; font-family: inherit; transition: all .15s; }
+    .btn-buyout:hover { background: #FFF0E6; transform: translateY(-1px); }
 
     .no-results { grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--mid); font-size: 15px; }
 
-    /* ── TOAST ── */
-    .toast-wrap {
-      position: fixed; bottom: 28px; right: 28px;
-      z-index: 200; display: flex; flex-direction: column; gap: 10px;
-      pointer-events: none;
-    }
-    .toast {
-      background: var(--orange); color: #fff;
-      padding: 13px 18px; border-radius: 12px;
-      font-size: 13px; font-weight: 600; line-height: 1.4;
-      box-shadow: 0 6px 24px rgba(244,97,10,0.4);
-      max-width: 280px;
-      animation: toastIn 0.3s ease forwards;
-      opacity: 1;
-    }
-    .toast.out { animation: toastOut 0.3s ease forwards; }
-    @keyframes toastIn {
-      from { opacity:0; transform:translateY(12px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-    @keyframes toastOut {
-      from { opacity:1; transform:translateY(0); }
-      to   { opacity:0; transform:translateY(8px); }
-    }
+    /* TOAST */
+    .toast-wrap { position: fixed; bottom: 28px; right: 28px; z-index: 200; display: flex; flex-direction: column; gap: 10px; pointer-events: none; }
+    .toast { background: var(--orange); color: #fff; padding: 13px 18px; border-radius: 12px; font-size: 13px; font-weight: 600; line-height: 1.4; box-shadow: 0 6px 24px rgba(244,97,10,.4); max-width: 280px; animation: toastIn .3s ease forwards; }
+    .toast.out { animation: toastOut .3s ease forwards; }
+    @keyframes toastIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes toastOut { from{opacity:1;transform:translateY(0)} to{opacity:0;transform:translateY(8px)} }
 
-    /* ── BID MODAL ── */
-    .overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(26,18,8,0.55); backdrop-filter: blur(4px);
-      z-index: 100; align-items: center; justify-content: center; padding: 24px;
-    }
+    /* MODALS */
+    .overlay { display: none; position: fixed; inset: 0; background: rgba(26,18,8,.55); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 24px; }
     .overlay.active { display: flex; }
-    .modal {
-      background: #fff; border-radius: 20px; padding: 36px; max-width: 400px; width: 100%;
-      position: relative; box-shadow: 0 24px 64px rgba(0,0,0,0.18); animation: slideUp 0.22s ease;
-    }
-    @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .modal { background: #fff; border-radius: 20px; padding: 36px; max-width: 400px; width: 100%; position: relative; box-shadow: 0 24px 64px rgba(0,0,0,.18); animation: slideUp .22s ease; }
+    @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
     .modal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: #aaa; }
     .modal-close:hover { color: var(--dark); }
     .modal-badge { display: inline-block; font-size: 12px; font-weight: 700; background: #FFF0E6; color: var(--orange); padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
@@ -237,26 +126,20 @@
     .modal-sub { font-size: 13px; color: var(--mid); margin-bottom: 24px; line-height: 1.6; }
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-    .modal input {
-      width: 100%; padding: 12px 14px; border: 1.5px solid #E8D5C4; border-radius: 10px;
-      font-size: 15px; color: var(--dark); background: #FFFAF7; outline: none; font-family: inherit; transition: border 0.15s;
-    }
+    .modal input { width: 100%; padding: 12px 14px; border: 1.5px solid #E8D5C4; border-radius: 10px; font-size: 15px; color: var(--dark); background: #FFFAF7; outline: none; font-family: inherit; transition: border .15s; }
     .modal input:focus { border-color: var(--orange); }
-    .current-bid-info {
-      background: #FFF0E6; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--mid);
-    }
-    .current-bid-info strong { color: var(--orange); font-size: 18px; }
-    .submit-btn {
-      width: 100%; padding: 15px; font-size: 15px; font-weight: 700;
-      background: var(--orange); color: #fff; border: none; border-radius: 12px;
-      cursor: pointer; font-family: inherit; transition: all 0.15s;
-    }
+    .bid-info-box { background: #FFF0E6; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--mid); }
+    .bid-info-box strong { color: var(--orange); font-size: 18px; }
+    .buyout-info-box { background: #FFF0E6; border-radius: 10px; padding: 16px; margin-bottom: 20px; text-align: center; }
+    .buyout-info-price { font-size: 28px; font-weight: 800; color: var(--orange); }
+    .buyout-info-label { font-size: 12px; color: var(--mid); margin-top: 2px; }
+    .submit-btn { width: 100%; padding: 15px; font-size: 15px; font-weight: 700; background: var(--orange); color: #fff; border: none; border-radius: 12px; cursor: pointer; font-family: inherit; transition: all .15s; }
     .submit-btn:hover { background: var(--orange-dark); }
     .success { display: none; text-align: center; padding: 8px 0; }
     .success.active { display: block; }
     .success-icon { font-size: 48px; margin-bottom: 14px; }
     .success-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-    .success-msg { font-size: 14px; color: var(--mid); line-height: 1.7; }
+    .success-msg { font-size: 14px; color: var(--mid); line-height: 1.8; }
 
     footer { text-align: center; padding: 24px; font-size: 12px; color: #C0A090; border-top: 1px solid #F0E0D0; }
   </style>
@@ -275,11 +158,9 @@
   <div class="search-wrap">
     <input type="text" id="searchInput" placeholder="품목명으로 검색..." oninput="applyFilter()" />
   </div>
-
   <div class="status-banner">
     현재 6건 경매 진행 중 <span>·</span> 누적 입찰 23건 <span>·</span> 오늘 신규 등록 2건
   </div>
-
   <div class="filter-tabs">
     <button class="tab active" data-cat="전체" onclick="setTab(this)">전체</button>
     <button class="tab" data-cat="주방기기" onclick="setTab(this)">주방기기</button>
@@ -287,7 +168,6 @@
     <button class="tab" data-cat="가구·인테리어" onclick="setTab(this)">가구·인테리어</button>
     <button class="tab" data-cat="기타" onclick="setTab(this)">기타</button>
   </div>
-
   <div class="section-header">
     <h2 class="section-title">진행 중인 경매</h2>
     <span class="section-count" id="countLabel">총 6건</span>
@@ -295,11 +175,12 @@
 
   <div class="grid" id="grid">
 
-    <!-- 1 -->
-    <div class="card" data-cat="주방기기">
+    <!-- 카드 1 -->
+    <div class="card" id="card0" data-cat="주방기기" data-current="32000" data-buyout="50000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="7" width="20" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 3건</span>
+        <span class="tag" id="tag0">경매 중</span>
+        <span class="bid-count-badge">입찰 3건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -308,24 +189,32 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 20,000원</span><span id="pct0">60%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:60%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar0" style="width:60%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">32,000<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price0">32,000<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t0"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 3건</span>
-          <button class="btn-bid" onclick="openBid('업소용 프라이어', '32,000')">입찰하기 →</button>
+          <button class="btn-bid" id="bid0" onclick="openBid(0,'업소용 프라이어','32,000')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">50,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout0" onclick="openBuyout(0,'업소용 프라이어','50,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
 
-    <!-- 2 -->
-    <div class="card" data-cat="포장재">
+    <!-- 카드 2 -->
+    <div class="card" id="card1" data-cat="포장재" data-current="15500" data-buyout="28000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 1건</span>
+        <span class="tag" id="tag1">경매 중</span>
+        <span class="bid-count-badge">입찰 1건</span>
       </div>
       <div class="card-body">
         <div class="card-category">포장재</div>
@@ -334,24 +223,32 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 10,000원</span><span id="pct1">55%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:55%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar1" style="width:55%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">15,500<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price1">15,500<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t1"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 1건</span>
-          <button class="btn-bid" onclick="openBid('단파지 박스 200개', '15,500')">입찰하기 →</button>
+          <button class="btn-bid" id="bid1" onclick="openBid(1,'단파지 박스 200개','15,500')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">28,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout1" onclick="openBuyout(1,'단파지 박스 200개','28,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
 
-    <!-- 3 -->
-    <div class="card" data-cat="주방기기">
+    <!-- 카드 3 -->
+    <div class="card" id="card2" data-cat="주방기기" data-current="280000" data-buyout="450000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><path d="M7 3v6M12 3v6M17 3v6"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 7건</span>
+        <span class="tag" id="tag2">경매 중</span>
+        <span class="bid-count-badge">입찰 7건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -360,24 +257,32 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 150,000원</span><span id="pct2">87%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:87%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar2" style="width:87%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">280,000<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price2">280,000<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t2"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 7건</span>
-          <button class="btn-bid" onclick="openBid('업소용 냉장고 650L', '280,000')">입찰하기 →</button>
+          <button class="btn-bid" id="bid2" onclick="openBid(2,'업소용 냉장고 650L','280,000')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">450,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout2" onclick="openBuyout(2,'업소용 냉장고 650L','450,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
 
-    <!-- 4 -->
-    <div class="card" data-cat="주방기기">
+    <!-- 카드 4 -->
+    <div class="card" id="card3" data-cat="주방기기" data-current="120000" data-buyout="200000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 2건</span>
+        <span class="tag" id="tag3">경매 중</span>
+        <span class="bid-count-badge">입찰 2건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -386,24 +291,32 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 80,000원</span><span id="pct3">50%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:50%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar3" style="width:50%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">120,000<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price3">120,000<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t3"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 2건</span>
-          <button class="btn-bid" onclick="openBid('업소용 에어컨 5마력', '120,000')">입찰하기 →</button>
+          <button class="btn-bid" id="bid3" onclick="openBid(3,'업소용 에어컨 5마력','120,000')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">200,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout3" onclick="openBuyout(3,'업소용 에어컨 5마력','200,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
 
-    <!-- 5 -->
-    <div class="card" data-cat="가구·인테리어">
+    <!-- 카드 5 -->
+    <div class="card" id="card4" data-cat="가구·인테리어" data-current="95000" data-buyout="160000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M20 9V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1H6v-1a2 2 0 0 0-4 0z"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 5건</span>
+        <span class="tag" id="tag4">경매 중</span>
+        <span class="bid-count-badge">입찰 5건</span>
       </div>
       <div class="card-body">
         <div class="card-category">가구·인테리어</div>
@@ -412,24 +325,32 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 60,000원</span><span id="pct4">58%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:58%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar4" style="width:58%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">95,000<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price4">95,000<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t4"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 5건</span>
-          <button class="btn-bid" onclick="openBid('카페 테이블 4인용 2세트', '95,000')">입찰하기 →</button>
+          <button class="btn-bid" id="bid4" onclick="openBid(4,'카페 테이블 4인용 2세트','95,000')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">160,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout4" onclick="openBuyout(4,'카페 테이블 4인용 2세트','160,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
 
-    <!-- 6 -->
-    <div class="card" data-cat="주방기기">
+    <!-- 카드 6 -->
+    <div class="card" id="card5" data-cat="주방기기" data-current="450000" data-buyout="600000">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M2 12h6"/></svg>
-        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 4건</span>
+        <span class="tag" id="tag5">경매 중</span>
+        <span class="bid-count-badge">입찰 4건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
@@ -438,15 +359,22 @@
         <div class="card-divider"></div>
         <div class="progress-wrap">
           <div class="progress-label"><span>시작가 200,000원</span><span id="pct5">125%</span></div>
-          <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+          <div class="progress-track"><div class="progress-bar" id="bar5" style="width:100%"></div></div>
         </div>
         <div class="card-meta">
-          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">450,000<span>원</span></div></div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price" id="price5">450,000<span>원</span></div></div>
           <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t5"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 4건</span>
-          <button class="btn-bid" onclick="openBid('제빵 오븐 (데크형)', '450,000')">입찰하기 →</button>
+          <button class="btn-bid" id="bid5" onclick="openBid(5,'제빵 오븐 (데크형)','450,000')">입찰하기 →</button>
+        </div>
+        <div class="buyout-row">
+          <div class="buyout-price-wrap">
+            <span class="buyout-badge">즉시낙찰</span>
+            <span class="buyout-price">600,000원</span>
+          </div>
+          <button class="btn-buyout" id="buyout5" onclick="openBuyout(5,'제빵 오븐 (데크형)','600,000')">즉시낙찰 →</button>
         </div>
       </div>
     </div>
@@ -456,27 +384,25 @@
 </main>
 
 <footer>© 2026 만남의 광장. 소상공인의 물건이 제자리를 찾도록.</footer>
-
-<!-- 토스트 컨테이너 -->
 <div class="toast-wrap" id="toastWrap"></div>
 
 <!-- 입찰 모달 -->
-<div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
+<div class="overlay" id="bidOverlay" onclick="closeBidModal(event)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div id="formView">
+    <button class="modal-close" onclick="closeBid()">✕</button>
+    <div id="bidFormView">
       <span class="modal-badge">입찰하기</span>
-      <h2 class="modal-title" id="modalTitle"></h2>
+      <h2 class="modal-title" id="bidModalTitle"></h2>
       <p class="modal-sub">낙찰 시 수수료 0원. 베타 기간 한정.</p>
-      <div class="current-bid-info">현재 최고가 <strong id="currentPrice"></strong>원 — 이보다 높게 입찰하세요.</div>
-      <form onsubmit="handleSubmit(event)">
+      <div class="bid-info-box">현재 최고가 <strong id="bidCurrentPrice"></strong>원 — 이보다 높게 입찰하세요.</div>
+      <form onsubmit="handleBidSubmit(event)">
         <div class="form-group"><label>입찰가 (원)</label><input type="number" id="bidPrice" placeholder="예: 35000" required min="1" /></div>
         <div class="form-group"><label>이름</label><input type="text" id="bidName" placeholder="홍길동" required /></div>
         <div class="form-group"><label>연락처</label><input type="tel" id="bidPhone" placeholder="010-0000-0000" required /></div>
         <button type="submit" class="submit-btn">입찰 신청하기 →</button>
       </form>
     </div>
-    <div class="success" id="successView">
+    <div class="success" id="bidSuccessView">
       <div class="success-icon">🎉</div>
       <div class="success-title">입찰 완료!</div>
       <p class="success-msg">입찰이 접수되었습니다.<br>낙찰 시 등록하신 연락처로 안내해 드릴게요.<br><br><strong style="color:var(--orange)">베타 기간 수수료 0원</strong> 적용 중.</p>
@@ -484,46 +410,65 @@
   </div>
 </div>
 
+<!-- 즉시낙찰 모달 -->
+<div class="overlay" id="buyoutOverlay" onclick="closeBuyoutModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeBuyout()">✕</button>
+    <div id="buyoutFormView">
+      <span class="modal-badge" style="background:#FFF0E6;color:var(--orange)">즉시낙찰</span>
+      <h2 class="modal-title" id="buyoutModalTitle"></h2>
+      <p class="modal-sub">지금 바로 낙찰받으세요. 경매가 즉시 종료됩니다.</p>
+      <div class="buyout-info-box">
+        <div class="buyout-info-price" id="buyoutModalPrice"></div>
+        <div class="buyout-info-label">즉시낙찰가 (수수료 포함 없음)</div>
+      </div>
+      <form onsubmit="handleBuyoutSubmit(event)">
+        <div class="form-group"><label>이름</label><input type="text" id="buyoutName" placeholder="홍길동" required /></div>
+        <div class="form-group"><label>연락처</label><input type="tel" id="buyoutPhone" placeholder="010-0000-0000" required /></div>
+        <button type="submit" class="submit-btn" style="background:#1A1208">즉시낙찰 확정하기 →</button>
+      </form>
+    </div>
+    <div class="success" id="buyoutSuccessView">
+      <div class="success-icon">🏆</div>
+      <div class="success-title">낙찰되었습니다!</div>
+      <p class="success-msg">판매자가 24시간 내 연락드립니다.<br>등록하신 연락처를 확인해 주세요.<br><br><strong style="color:var(--orange)">베타 기간 수수료 0원</strong> 적용 중.</p>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ── 타이머 ── */
   const offsets = [47.5, 0.7, 71, 26, 3.2, 53].map(h => h * 3600 * 1000);
-  const start = Date.now();
+  const startTs = Date.now();
 
   function formatTime(ms) {
     if (ms <= 0) return '마감';
-    const h = Math.floor(ms / 3600000);
-    const m = Math.floor((ms % 3600000) / 60000);
-    const s = Math.floor((ms % 60000) / 1000);
+    const h = Math.floor(ms / 3600000), m = Math.floor((ms % 3600000) / 60000), s = Math.floor((ms % 60000) / 1000);
     if (h >= 24) return `${Math.floor(h/24)}일 ${h%24}시간`;
     return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   }
-
   function tick() {
-    const elapsed = Date.now() - start;
-    offsets.forEach((offset, i) => {
+    const elapsed = Date.now() - startTs;
+    offsets.forEach((o, i) => {
       const el = document.getElementById('t' + i);
       if (!el) return;
-      const rem = offset - elapsed;
+      const rem = o - elapsed;
       el.textContent = formatTime(rem);
       el.classList.toggle('urgent', rem > 0 && rem <= 3600000);
     });
   }
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 
   /* ── sticky 헤더 ── */
-  const nav = document.getElementById('mainNav');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('compact', window.scrollY > 60);
+    document.getElementById('mainNav').classList.toggle('compact', window.scrollY > 60);
   });
 
   /* ── 필터 & 검색 ── */
   let activeTab = '전체';
   function setTab(btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
-    activeTab = btn.dataset.cat;
-    applyFilter();
+    btn.classList.add('active'); activeTab = btn.dataset.cat; applyFilter();
   }
   function applyFilter() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -539,69 +484,121 @@
     document.getElementById('noResults').style.display = vis === 0 ? 'block' : 'none';
   }
 
-  /* ── 실시간 입찰 토스트 ── */
+  /* ── 낙찰완료 처리 ── */
+  function markSold(idx) {
+    const card = document.getElementById('card' + idx);
+    if (!card || card.classList.contains('sold')) return;
+    card.classList.add('sold');
+
+    const tag = document.getElementById('tag' + idx);
+    tag.textContent = '낙찰완료';
+    tag.classList.add('sold-tag');
+
+    const imgEl = card.querySelector('.card-img');
+    const overlay = document.createElement('div');
+    overlay.className = 'sold-overlay';
+    overlay.innerHTML = '<span class="sold-label">낙찰완료</span>';
+    imgEl.appendChild(overlay);
+
+    document.getElementById('bid' + idx).disabled = true;
+    document.getElementById('buyout' + idx).disabled = true;
+  }
+
+  /* ── 입찰 모달 ── */
+  let currentBidIdx = null;
+  function openBid(idx, name, price) {
+    currentBidIdx = idx;
+    document.getElementById('bidModalTitle').textContent = name;
+    document.getElementById('bidCurrentPrice').textContent = price;
+    document.getElementById('bidFormView').style.display = 'block';
+    document.getElementById('bidSuccessView').classList.remove('active');
+    ['bidPrice','bidName','bidPhone'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('bidOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBid() {
+    document.getElementById('bidOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function closeBidModal(e) { if (e.target === document.getElementById('bidOverlay')) closeBid(); }
+
+  function handleBidSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = '처리 중...'; btn.disabled = true;
+
+    const bidVal = parseInt(document.getElementById('bidPrice').value, 10);
+    const card = document.getElementById('card' + currentBidIdx);
+    const buyoutVal = parseInt(card.dataset.buyout, 10);
+
+    setTimeout(() => {
+      document.getElementById('bidFormView').style.display = 'none';
+      document.getElementById('bidSuccessView').classList.add('active');
+      if (bidVal >= buyoutVal) {
+        setTimeout(() => { closeBid(); markSold(currentBidIdx); }, 1200);
+      }
+    }, 800);
+  }
+
+  /* ── 즉시낙찰 모달 ── */
+  let currentBuyoutIdx = null;
+  function openBuyout(idx, name, price) {
+    currentBuyoutIdx = idx;
+    document.getElementById('buyoutModalTitle').textContent = name;
+    document.getElementById('buyoutModalPrice').textContent = price + '원';
+    document.getElementById('buyoutFormView').style.display = 'block';
+    document.getElementById('buyoutSuccessView').classList.remove('active');
+    ['buyoutName','buyoutPhone'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('buyoutOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeBuyout() {
+    document.getElementById('buyoutOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function closeBuyoutModal(e) { if (e.target === document.getElementById('buyoutOverlay')) closeBuyout(); }
+
+  function handleBuyoutSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.submit-btn');
+    btn.textContent = '처리 중...'; btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('buyoutFormView').style.display = 'none';
+      document.getElementById('buyoutSuccessView').classList.add('active');
+      setTimeout(() => { closeBuyout(); markSold(currentBuyoutIdx); }, 1500);
+    }, 800);
+  }
+
+  /* ── 토스트 ── */
   const toastData = [
     { nick: '인천사장님', item: '업소용 냉장고 650L', price: '290,000' },
-    { nick: '청라상인', item: '제빵 오븐 (데크형)', price: '460,000' },
-    { nick: '송도가게', item: '업소용 프라이어', price: '34,000' },
-    { nick: '부평사장', item: '카페 테이블 4인용 2세트', price: '98,000' },
-    { nick: '연수상회', item: '단파지 박스 200개', price: '16,000' },
-    { nick: '남동유통', item: '업소용 에어컨 5마력', price: '125,000' },
-    { nick: '중구마트', item: '업소용 냉장고 650L', price: '300,000' },
-    { nick: '서구사장님', item: '제빵 오븐 (데크형)', price: '470,000' },
-    { nick: '영종상인', item: '업소용 프라이어', price: '35,500' },
-    { nick: '계양가게', item: '카페 테이블 4인용 2세트', price: '102,000' },
+    { nick: '청라상인',   item: '제빵 오븐 (데크형)',  price: '460,000' },
+    { nick: '송도가게',   item: '업소용 프라이어',     price: '34,000'  },
+    { nick: '부평사장',   item: '카페 테이블 4인용 2세트', price: '98,000' },
+    { nick: '연수상회',   item: '단파지 박스 200개',   price: '16,000'  },
+    { nick: '남동유통',   item: '업소용 에어컨 5마력', price: '125,000' },
+    { nick: '중구마트',   item: '업소용 냉장고 650L',  price: '300,000' },
+    { nick: '서구사장님', item: '제빵 오븐 (데크형)',  price: '470,000' },
+    { nick: '영종상인',   item: '업소용 프라이어',     price: '35,500'  },
+    { nick: '계양가게',   item: '카페 테이블 4인용 2세트', price: '102,000' },
     { nick: '미추홀사장', item: '업소용 에어컨 5마력', price: '128,000' },
   ];
   let toastIdx = 0;
-
   function showToast() {
-    const d = toastData[toastIdx % toastData.length];
-    toastIdx++;
+    const d = toastData[toastIdx++ % toastData.length];
     const wrap = document.getElementById('toastWrap');
     const el = document.createElement('div');
     el.className = 'toast';
     el.textContent = `방금 ${d.nick}님이 ${d.item}에 ${d.price}원 입찰했습니다`;
     wrap.appendChild(el);
-    setTimeout(() => {
-      el.classList.add('out');
-      setTimeout(() => el.remove(), 320);
-    }, 3000);
+    setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, 3000);
   }
-
-  function scheduleToast() {
-    const delay = 3000 + Math.random() * 2000;
-    setTimeout(() => { showToast(); scheduleToast(); }, delay);
-  }
+  function scheduleToast() { setTimeout(() => { showToast(); scheduleToast(); }, 3000 + Math.random() * 2000); }
   setTimeout(scheduleToast, 2000);
 
-  /* ── 모달 ── */
-  function openBid(name, price) {
-    document.getElementById('modalTitle').textContent = name;
-    document.getElementById('currentPrice').textContent = price;
-    document.getElementById('formView').style.display = 'block';
-    document.getElementById('successView').classList.remove('active');
-    ['bidPrice','bidName','bidPhone'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('overlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeModal() {
-    document.getElementById('overlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  function closeOnOverlay(e) {
-    if (e.target === document.getElementById('overlay')) closeModal();
-  }
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.submit-btn');
-    btn.textContent = '처리 중...'; btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('formView').style.display = 'none';
-      document.getElementById('successView').classList.add('active');
-    }, 800);
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeBid(); closeBuyout(); }
+  });
 </script>
 </body>
 </html>
