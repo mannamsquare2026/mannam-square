@@ -31,6 +31,7 @@
       flex-direction: column;
     }
 
+    /* ── STICKY NAV ── */
     nav {
       padding: 20px 32px;
       display: flex;
@@ -40,30 +41,59 @@
       background: #fff;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 50;
+      transition: padding 0.25s ease;
     }
-    .logo { font-size: 18px; font-weight: 800; color: var(--orange); letter-spacing: -0.5px; text-decoration: none; }
+    nav.compact { padding: 12px 32px; }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--orange);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      transition: font-size 0.25s ease;
+    }
+    nav.compact .logo { font-size: 18px; }
+
     .nav-right { display: flex; align-items: center; gap: 12px; }
     .badge { font-size: 12px; background: #FFF0E6; color: var(--orange); padding: 4px 10px; border-radius: 20px; font-weight: 600; }
     .btn-register {
       padding: 10px 20px; font-size: 14px; font-weight: 700;
       background: var(--orange); color: #fff; border: none; border-radius: 10px;
-      cursor: pointer; font-family: inherit; transition: all 0.15s; text-decoration: none; display: inline-block;
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
+      text-decoration: none; display: inline-block;
     }
     .btn-register:hover { background: var(--orange-dark); transform: translateY(-1px); }
 
+    /* ── MAIN ── */
     main { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 36px 24px 60px; }
 
-    .search-wrap { position: relative; margin-bottom: 20px; }
+    /* ── SEARCH ── */
+    .search-wrap { position: relative; margin-bottom: 16px; }
     .search-wrap input {
-      width: 100%; padding: 14px 20px 14px 44px;
+      width: 100%; padding: 14px 20px 14px 20px;
       border: 1.5px solid #E8D5C4; border-radius: 12px;
       font-size: 15px; color: var(--dark); background: #fff;
       outline: none; font-family: inherit; transition: border 0.15s;
     }
     .search-wrap input:focus { border-color: var(--orange); }
-    .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #B07A5A; pointer-events: none; }
 
+    /* ── STATUS BANNER ── */
+    .status-banner {
+      background: var(--orange);
+      color: #fff;
+      border-radius: 10px;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: 0.1px;
+    }
+    .status-banner span { opacity: 0.75; margin: 0 8px; }
+
+    /* ── FILTER TABS ── */
     .filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
     .tab {
       padding: 8px 16px; font-size: 13px; font-weight: 600;
@@ -77,19 +107,26 @@
     .section-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
     .section-count { font-size: 14px; color: var(--mid); }
 
+    /* ── GRID ── */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
 
+    /* ── CARD ── */
     .card {
       background: #fff; border-radius: 16px; overflow: hidden;
       box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      transition: transform 0.18s, box-shadow 0.18s; display: flex; flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex; flex-direction: column;
     }
-    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.14);
+    }
 
     .card-img {
       width: 100%; aspect-ratio: 4/3;
       background: linear-gradient(135deg, #E8DDD5 0%, #D4C4B8 100%);
-      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
     }
     .card-img svg { opacity: 0.35; }
     .card-img .tag {
@@ -109,6 +146,20 @@
     .card-desc { font-size: 13px; color: var(--mid); line-height: 1.55; }
     .card-divider { height: 1px; background: #F0E0D0; margin: 4px 0; }
 
+    /* ── PROGRESS BAR ── */
+    .progress-wrap { margin: 4px 0 2px; }
+    .progress-label {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: #B07A5A; margin-bottom: 5px;
+    }
+    .progress-track {
+      width: 100%; height: 5px; background: #F0E0D0; border-radius: 10px; overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%; background: var(--orange); border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+
     .card-meta { display: flex; justify-content: space-between; align-items: flex-end; }
     .bid-label { font-size: 11px; color: #B07A5A; margin-bottom: 2px; }
     .bid-price { font-size: 22px; font-weight: 800; color: var(--orange); letter-spacing: -0.5px; }
@@ -116,9 +167,20 @@
 
     .timer-wrap { text-align: right; }
     .timer-label { font-size: 11px; color: #B07A5A; margin-bottom: 2px; }
-    .timer { font-size: 15px; font-weight: 700; color: var(--dark); font-variant-numeric: tabular-nums; }
-    .timer.urgent { color: #E03030; animation: blink 1s ease-in-out infinite; }
-    @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.55; } }
+    .timer {
+      font-size: 15px; font-weight: 700; color: var(--dark);
+      font-variant-numeric: tabular-nums;
+      display: inline-block;
+    }
+    .timer.urgent {
+      color: #E03030;
+      animation: shake 0.4s ease infinite;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-2px); }
+      75%      { transform: translateX(2px); }
+    }
 
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
     .bid-count { font-size: 12px; color: var(--mid); font-weight: 600; }
@@ -131,7 +193,32 @@
 
     .no-results { grid-column: 1/-1; text-align: center; padding: 60px 0; color: var(--mid); font-size: 15px; }
 
-    /* MODAL */
+    /* ── TOAST ── */
+    .toast-wrap {
+      position: fixed; bottom: 28px; right: 28px;
+      z-index: 200; display: flex; flex-direction: column; gap: 10px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--orange); color: #fff;
+      padding: 13px 18px; border-radius: 12px;
+      font-size: 13px; font-weight: 600; line-height: 1.4;
+      box-shadow: 0 6px 24px rgba(244,97,10,0.4);
+      max-width: 280px;
+      animation: toastIn 0.3s ease forwards;
+      opacity: 1;
+    }
+    .toast.out { animation: toastOut 0.3s ease forwards; }
+    @keyframes toastIn {
+      from { opacity:0; transform:translateY(12px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes toastOut {
+      from { opacity:1; transform:translateY(0); }
+      to   { opacity:0; transform:translateY(8px); }
+    }
+
+    /* ── BID MODAL ── */
     .overlay {
       display: none; position: fixed; inset: 0;
       background: rgba(26,18,8,0.55); backdrop-filter: blur(4px);
@@ -148,7 +235,6 @@
     .modal-badge { display: inline-block; font-size: 12px; font-weight: 700; background: #FFF0E6; color: var(--orange); padding: 4px 10px; border-radius: 20px; margin-bottom: 12px; }
     .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
     .modal-sub { font-size: 13px; color: var(--mid); margin-bottom: 24px; line-height: 1.6; }
-
     .form-group { margin-bottom: 14px; }
     label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
     .modal input {
@@ -156,19 +242,16 @@
       font-size: 15px; color: var(--dark); background: #FFFAF7; outline: none; font-family: inherit; transition: border 0.15s;
     }
     .modal input:focus { border-color: var(--orange); }
-
     .current-bid-info {
       background: #FFF0E6; border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px; color: var(--mid);
     }
     .current-bid-info strong { color: var(--orange); font-size: 18px; }
-
     .submit-btn {
       width: 100%; padding: 15px; font-size: 15px; font-weight: 700;
       background: var(--orange); color: #fff; border: none; border-radius: 12px;
       cursor: pointer; font-family: inherit; transition: all 0.15s;
     }
     .submit-btn:hover { background: var(--orange-dark); }
-
     .success { display: none; text-align: center; padding: 8px 0; }
     .success.active { display: block; }
     .success-icon { font-size: 48px; margin-bottom: 14px; }
@@ -180,7 +263,7 @@
 </head>
 <body>
 
-<nav>
+<nav id="mainNav">
   <a class="logo" href="/">만남의 광장</a>
   <div class="nav-right">
     <span class="badge">Beta</span>
@@ -190,8 +273,11 @@
 
 <main>
   <div class="search-wrap">
-    <span class="search-icon">🔍</span>
     <input type="text" id="searchInput" placeholder="품목명으로 검색..." oninput="applyFilter()" />
+  </div>
+
+  <div class="status-banner">
+    현재 6건 경매 진행 중 <span>·</span> 누적 입찰 23건 <span>·</span> 오늘 신규 등록 2건
   </div>
 
   <div class="filter-tabs">
@@ -213,23 +299,20 @@
     <div class="card" data-cat="주방기기">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="7" width="20" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 3건</span>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 3건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
         <div class="card-name">업소용 프라이어</div>
         <div class="card-desc">5년 쓴 업소용 프라이어, 기름 교체하면 바로 씁니다. 폐업으로 처분합니다. 인천 남동구 직거래.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 20,000원</span><span id="pct0">60%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:60%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">32,000<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t0"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">32,000<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t0"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 3건</span>
@@ -242,23 +325,20 @@
     <div class="card" data-cat="포장재">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 1건</span>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 1건</span>
       </div>
       <div class="card-body">
         <div class="card-category">포장재</div>
         <div class="card-name">단파지 박스 200개</div>
         <div class="card-desc">미개봉 신품 박스 200개. 온라인 판매 접으면서 처분합니다. 한 번에 가져가실 분. 인천 연수구.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 10,000원</span><span id="pct1">55%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:55%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">15,500<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t1"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">15,500<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t1"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 1건</span>
@@ -271,23 +351,20 @@
     <div class="card" data-cat="주방기기">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><path d="M7 3v6M12 3v6M17 3v6"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 7건</span>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 7건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
         <div class="card-name">업소용 냉장고 650L</div>
         <div class="card-desc">4도어 업소용 냉장고, 3년 사용. 냉각 정상. 가게 접으면서 내놓습니다. 인천 중구, 직거래만.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 150,000원</span><span id="pct2">87%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:87%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">280,000<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t2"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">280,000<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t2"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 7건</span>
@@ -299,24 +376,21 @@
     <!-- 4 -->
     <div class="card" data-cat="주방기기">
       <div class="card-img">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8v8"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 2건</span>
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 2건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
         <div class="card-name">업소용 에어컨 5마력</div>
         <div class="card-desc">천장형 시스템 에어컨 5마력, 4년 사용. 냉방 이상 없습니다. 철거 후 가져가실 분. 인천 서구.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 80,000원</span><span id="pct3">50%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:50%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">120,000<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t3"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">120,000<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t3"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 2건</span>
@@ -329,23 +403,20 @@
     <div class="card" data-cat="가구·인테리어">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><path d="M20 9V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v2"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1H6v-1a2 2 0 0 0-4 0z"/><line x1="6" y1="18" x2="6" y2="22"/><line x1="18" y1="18" x2="18" y2="22"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 5건</span>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 5건</span>
       </div>
       <div class="card-body">
         <div class="card-category">가구·인테리어</div>
         <div class="card-name">카페 테이블 4인용 2세트</div>
         <div class="card-desc">원목 4인 테이블 2개 + 의자 8개. 3년 운영하던 카페 접습니다. 흠집 거의 없어요. 인천 남구.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 60,000원</span><span id="pct4">58%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:58%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">95,000<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t4"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">95,000<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t4"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 5건</span>
@@ -358,23 +429,20 @@
     <div class="card" data-cat="주방기기">
       <div class="card-img">
         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#8B6A56" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M8 4v16M2 12h6"/></svg>
-        <span class="tag">경매 중</span>
-        <span class="bid-count-badge">입찰 4건</span>
+        <span class="tag">경매 중</span><span class="bid-count-badge">입찰 4건</span>
       </div>
       <div class="card-body">
         <div class="card-category">주방기기</div>
         <div class="card-name">제빵 오븐 (데크형)</div>
         <div class="card-desc">데크 오븐 2단, 6년 사용. 열선 교체하면 오래 씁니다. 베이커리 폐업 처분. 인천 부평구 직거래.</div>
         <div class="card-divider"></div>
+        <div class="progress-wrap">
+          <div class="progress-label"><span>시작가 200,000원</span><span id="pct5">125%</span></div>
+          <div class="progress-track"><div class="progress-bar" style="width:100%"></div></div>
+        </div>
         <div class="card-meta">
-          <div>
-            <div class="bid-label">현재 최고 입찰가</div>
-            <div class="bid-price">450,000<span>원</span></div>
-          </div>
-          <div class="timer-wrap">
-            <div class="timer-label">마감까지</div>
-            <div class="timer" id="t5"></div>
-          </div>
+          <div><div class="bid-label">현재 최고 입찰가</div><div class="bid-price">450,000<span>원</span></div></div>
+          <div class="timer-wrap"><div class="timer-label">마감까지</div><div class="timer" id="t5"></div></div>
         </div>
         <div class="card-footer">
           <span class="bid-count">입찰 4건</span>
@@ -389,6 +457,9 @@
 
 <footer>© 2026 만남의 광장. 소상공인의 물건이 제자리를 찾도록.</footer>
 
+<!-- 토스트 컨테이너 -->
+<div class="toast-wrap" id="toastWrap"></div>
+
 <!-- 입찰 모달 -->
 <div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
   <div class="modal">
@@ -397,34 +468,24 @@
       <span class="modal-badge">입찰하기</span>
       <h2 class="modal-title" id="modalTitle"></h2>
       <p class="modal-sub">낙찰 시 수수료 0원. 베타 기간 한정.</p>
-      <div class="current-bid-info">
-        현재 최고가 <strong id="currentPrice"></strong>원 — 이보다 높게 입찰하세요.
-      </div>
+      <div class="current-bid-info">현재 최고가 <strong id="currentPrice"></strong>원 — 이보다 높게 입찰하세요.</div>
       <form onsubmit="handleSubmit(event)">
-        <div class="form-group">
-          <label>입찰가 (원)</label>
-          <input type="number" id="bidPrice" placeholder="예: 35000" required min="1" />
-        </div>
-        <div class="form-group">
-          <label>이름</label>
-          <input type="text" id="bidName" placeholder="홍길동" required />
-        </div>
-        <div class="form-group">
-          <label>연락처</label>
-          <input type="tel" id="bidPhone" placeholder="010-0000-0000" required />
-        </div>
+        <div class="form-group"><label>입찰가 (원)</label><input type="number" id="bidPrice" placeholder="예: 35000" required min="1" /></div>
+        <div class="form-group"><label>이름</label><input type="text" id="bidName" placeholder="홍길동" required /></div>
+        <div class="form-group"><label>연락처</label><input type="tel" id="bidPhone" placeholder="010-0000-0000" required /></div>
         <button type="submit" class="submit-btn">입찰 신청하기 →</button>
       </form>
     </div>
     <div class="success" id="successView">
       <div class="success-icon">🎉</div>
       <div class="success-title">입찰 완료!</div>
-      <p class="success-msg">입찰이 접수되었습니다.<br>낙찰 시 등록하신 연락처로<br>안내해 드릴게요.<br><br><strong style="color:var(--orange)">베타 기간 수수료 0원</strong> 적용 중.</p>
+      <p class="success-msg">입찰이 접수되었습니다.<br>낙찰 시 등록하신 연락처로 안내해 드릴게요.<br><br><strong style="color:var(--orange)">베타 기간 수수료 0원</strong> 적용 중.</p>
     </div>
   </div>
 </div>
 
 <script>
+  /* ── 타이머 ── */
   const offsets = [47.5, 0.7, 71, 26, 3.2, 53].map(h => h * 3600 * 1000);
   const start = Date.now();
 
@@ -442,38 +503,79 @@
     offsets.forEach((offset, i) => {
       const el = document.getElementById('t' + i);
       if (!el) return;
-      const remaining = offset - elapsed;
-      el.textContent = formatTime(remaining);
-      el.classList.toggle('urgent', remaining > 0 && remaining <= 3600000);
+      const rem = offset - elapsed;
+      el.textContent = formatTime(rem);
+      el.classList.toggle('urgent', rem > 0 && rem <= 3600000);
     });
   }
   tick();
   setInterval(tick, 1000);
 
-  let activeTab = '전체';
+  /* ── sticky 헤더 ── */
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('compact', window.scrollY > 60);
+  });
 
+  /* ── 필터 & 검색 ── */
+  let activeTab = '전체';
   function setTab(btn) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     btn.classList.add('active');
     activeTab = btn.dataset.cat;
     applyFilter();
   }
-
   function applyFilter() {
-    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
     const cards = document.querySelectorAll('.card[data-cat]');
-    let visible = 0;
-    cards.forEach(card => {
-      const catMatch = activeTab === '전체' || card.dataset.cat === activeTab;
-      const nameMatch = !query || card.querySelector('.card-name').textContent.toLowerCase().includes(query);
-      const show = catMatch && nameMatch;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
+    let vis = 0;
+    cards.forEach(c => {
+      const show = (activeTab === '전체' || c.dataset.cat === activeTab) &&
+                   (!q || c.querySelector('.card-name').textContent.toLowerCase().includes(q));
+      c.style.display = show ? '' : 'none';
+      if (show) vis++;
     });
-    document.getElementById('countLabel').textContent = `총 ${visible}건`;
-    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    document.getElementById('countLabel').textContent = `총 ${vis}건`;
+    document.getElementById('noResults').style.display = vis === 0 ? 'block' : 'none';
   }
 
+  /* ── 실시간 입찰 토스트 ── */
+  const toastData = [
+    { nick: '인천사장님', item: '업소용 냉장고 650L', price: '290,000' },
+    { nick: '청라상인', item: '제빵 오븐 (데크형)', price: '460,000' },
+    { nick: '송도가게', item: '업소용 프라이어', price: '34,000' },
+    { nick: '부평사장', item: '카페 테이블 4인용 2세트', price: '98,000' },
+    { nick: '연수상회', item: '단파지 박스 200개', price: '16,000' },
+    { nick: '남동유통', item: '업소용 에어컨 5마력', price: '125,000' },
+    { nick: '중구마트', item: '업소용 냉장고 650L', price: '300,000' },
+    { nick: '서구사장님', item: '제빵 오븐 (데크형)', price: '470,000' },
+    { nick: '영종상인', item: '업소용 프라이어', price: '35,500' },
+    { nick: '계양가게', item: '카페 테이블 4인용 2세트', price: '102,000' },
+    { nick: '미추홀사장', item: '업소용 에어컨 5마력', price: '128,000' },
+  ];
+  let toastIdx = 0;
+
+  function showToast() {
+    const d = toastData[toastIdx % toastData.length];
+    toastIdx++;
+    const wrap = document.getElementById('toastWrap');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = `방금 ${d.nick}님이 ${d.item}에 ${d.price}원 입찰했습니다`;
+    wrap.appendChild(el);
+    setTimeout(() => {
+      el.classList.add('out');
+      setTimeout(() => el.remove(), 320);
+    }, 3000);
+  }
+
+  function scheduleToast() {
+    const delay = 3000 + Math.random() * 2000;
+    setTimeout(() => { showToast(); scheduleToast(); }, delay);
+  }
+  setTimeout(scheduleToast, 2000);
+
+  /* ── 모달 ── */
   function openBid(name, price) {
     document.getElementById('modalTitle').textContent = name;
     document.getElementById('currentPrice').textContent = price;
@@ -483,16 +585,13 @@
     document.getElementById('overlay').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
-
   function closeModal() {
     document.getElementById('overlay').classList.remove('active');
     document.body.style.overflow = '';
   }
-
   function closeOnOverlay(e) {
     if (e.target === document.getElementById('overlay')) closeModal();
   }
-
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.submit-btn');
@@ -502,7 +601,6 @@
       document.getElementById('successView').classList.add('active');
     }, 800);
   }
-
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
