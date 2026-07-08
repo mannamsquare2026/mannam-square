@@ -158,6 +158,88 @@
       font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
     }
 
+    /* 상태 등급 */
+    .grade-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grade-option input[type="radio"] { display: none; }
+    .grade-option label {
+      display: block; padding: 12px 14px;
+      border: 1.5px solid #E8D5C4; border-radius: 10px;
+      cursor: pointer; transition: all 0.15s; background: #FFFAF7;
+    }
+    .grade-option input[type="radio"]:checked + label {
+      border-color: var(--orange); background: #FFF5EE;
+      box-shadow: 0 0 0 3px rgba(244,97,10,.1);
+    }
+    .grade-name { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .grade-option input[type="radio"]:checked + label .grade-name { color: var(--orange); }
+    .grade-desc { font-size: 11px; color: #B07A5A; line-height: 1.4; }
+
+    /* AI 추천 박스 */
+    .ai-box {
+      display: none;
+      background: #FFF5EE;
+      border: 1.5px solid var(--orange);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-top: 10px;
+    }
+    .ai-box-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .ai-badge {
+      font-size: 10px; font-weight: 700; background: var(--orange); color: #fff;
+      padding: 2px 8px; border-radius: 20px; letter-spacing: 0.5px;
+    }
+    .ai-box-title { font-size: 12px; font-weight: 600; color: var(--mid); }
+    .ai-price-range { font-size: 20px; font-weight: 800; color: var(--orange); letter-spacing: -0.5px; }
+    .ai-price-range span { font-size: 13px; font-weight: 600; }
+    .ai-apply-btn {
+      margin-top: 10px; padding: 8px 14px; font-size: 12px; font-weight: 700;
+      background: var(--orange); color: #fff; border: none; border-radius: 8px;
+      cursor: pointer; font-family: inherit; transition: background .15s;
+    }
+    .ai-apply-btn:hover { background: var(--orange-dark); }
+
+    /* 유사 거래 참고가 */
+    .similar-box {
+      display: none;
+      margin-top: 14px;
+    }
+    .similar-title { font-size: 12px; font-weight: 700; color: var(--mid); margin-bottom: 8px; letter-spacing: 0.3px; }
+    .similar-list { display: flex; flex-direction: column; gap: 7px; }
+    .similar-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #FFFAF7; border: 1px solid #F0E0D0; border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .similar-item-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+    .similar-item-right { text-align: right; }
+    .similar-item-price { font-size: 13px; font-weight: 700; color: var(--orange); }
+    .similar-item-date { font-size: 11px; color: #B07A5A; margin-top: 1px; }
+
+    /* 가격 경고 */
+    .price-warning {
+      display: none;
+      background: #FFF8EE;
+      border: 1.5px solid var(--orange);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 10px;
+    }
+    .price-warning-msg { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 12px; line-height: 1.5; }
+    .price-warning-msg strong { color: var(--orange); }
+    .price-warning-btns { display: flex; gap: 8px; }
+    .btn-warn-confirm {
+      flex: 1; padding: 10px; font-size: 13px; font-weight: 700;
+      background: #fff; color: var(--mid); border: 1.5px solid #E8D5C4;
+      border-radius: 8px; cursor: pointer; font-family: inherit; transition: all .15s;
+    }
+    .btn-warn-confirm:hover { border-color: var(--mid); }
+    .btn-warn-edit {
+      flex: 1; padding: 10px; font-size: 13px; font-weight: 700;
+      background: var(--orange); color: #fff; border: none;
+      border-radius: 8px; cursor: pointer; font-family: inherit; transition: background .15s;
+    }
+    .btn-warn-edit:hover { background: var(--orange-dark); }
+
     /* 기간 선택 */
     .radio-group { display: flex; gap: 10px; }
     .radio-option { flex: 1; }
@@ -248,18 +330,24 @@
 
       <div class="form-group">
         <label>카테고리 <span class="req">*</span></label>
-        <select id="category" required>
+        <select id="category" required onchange="onCategoryChange()">
           <option value="" disabled selected>카테고리를 선택하세요</option>
           <option>주방기기</option>
           <option>포장재</option>
           <option>가구·인테리어</option>
           <option>기타</option>
         </select>
+
+        <!-- 유사 거래 참고가 -->
+        <div class="similar-box" id="similarBox">
+          <div class="similar-title">📊 최근 비슷한 물건 낙찰가</div>
+          <div class="similar-list" id="similarList"></div>
+        </div>
       </div>
 
       <div class="form-group">
         <label>물건명 <span class="req">*</span></label>
-        <input type="text" id="itemName" placeholder="예: 업소용 냉장고 650L" required onblur="suggestPrice()" />
+        <input type="text" id="itemName" placeholder="예: 업소용 냉장고 650L" required onblur="calcAiPrice()" />
       </div>
 
       <div class="form-group">
@@ -281,14 +369,67 @@
 
       <div class="section-label">경매 조건</div>
 
+      <!-- 상태 등급 -->
+      <div class="form-group">
+        <label>상태 등급 <span class="req">*</span></label>
+        <div class="grade-group">
+          <div class="grade-option">
+            <input type="radio" name="grade" id="gradeA" value="A" onchange="calcAiPrice()" />
+            <label for="gradeA">
+              <div class="grade-name">A등급 — 거의 새것</div>
+              <div class="grade-desc">정가의 60~70% 수준</div>
+            </label>
+          </div>
+          <div class="grade-option">
+            <input type="radio" name="grade" id="gradeB" value="B" onchange="calcAiPrice()" />
+            <label for="gradeB">
+              <div class="grade-name">B등급 — 정상 사용감</div>
+              <div class="grade-desc">정가의 40~50% 수준</div>
+            </label>
+          </div>
+          <div class="grade-option">
+            <input type="radio" name="grade" id="gradeC" value="C" onchange="calcAiPrice()" />
+            <label for="gradeC">
+              <div class="grade-name">C등급 — 흠집·기스 있음</div>
+              <div class="grade-desc">정가의 20~30% 수준</div>
+            </label>
+          </div>
+          <div class="grade-option">
+            <input type="radio" name="grade" id="gradeD" value="D" onchange="calcAiPrice()" />
+            <label for="gradeD">
+              <div class="grade-name">D등급 — 부품용·수리 필요</div>
+              <div class="grade-desc">정가의 10% 이하</div>
+            </label>
+          </div>
+        </div>
+
+        <!-- AI 추천 박스 -->
+        <div class="ai-box" id="aiBox">
+          <div class="ai-box-header">
+            <span class="ai-badge">AI 추천</span>
+            <span class="ai-box-title">카테고리·등급 기반 권장 시작가</span>
+          </div>
+          <div class="ai-price-range" id="aiPriceRange">—</div>
+          <button type="button" class="ai-apply-btn" onclick="applyAiPrice()">이 가격으로 설정하기</button>
+        </div>
+      </div>
+
       <div class="form-group">
         <label>시작가 <span class="req">*</span></label>
         <div class="price-wrap">
-          <input type="text" id="startPrice" placeholder="10,000" required oninput="formatPrice(this)" />
+          <input type="text" id="startPrice" placeholder="10,000" required oninput="onPriceInput(this)" />
           <span class="price-unit">원</span>
         </div>
-        <div id="aiPriceSuggestion" style="display:none;margin-top:8px;font-size:13px;color:var(--orange);font-weight:600;line-height:1.5;">
-          🤖 비슷한 물건 평균 시작가는 약 <span id="aiPriceValue"></span>원입니다
+        <!-- 가격 경고 -->
+        <div class="price-warning" id="priceWarning">
+          <div class="price-warning-msg">
+            <strong>시세보다 많이 낮습니다.</strong><br>
+            권장가 대비 30% 이상 낮은 가격입니다. 이대로 진행하시겠습니까?
+          </div>
+          <div class="price-warning-btns">
+            <button type="button" class="btn-warn-confirm" onclick="confirmLowPrice()">이대로 진행</button>
+            <button type="button" class="btn-warn-edit" onclick="editPrice()">가격 수정하기</button>
+          </div>
         </div>
       </div>
 
@@ -355,7 +496,7 @@
 </div>
 
 <script>
-  // 사진 미리보기
+  // ── 사진 미리보기 ──
   let files = [];
   function handleFiles(incoming) {
     const arr = Array.from(incoming).slice(0, 4 - files.length);
@@ -388,8 +529,6 @@
       reader.readAsDataURL(f);
     });
   }
-
-  // 드래그앤드롭
   const area = document.getElementById('uploadArea');
   area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('dragover'); });
   area.addEventListener('dragleave', () => area.classList.remove('dragover'));
@@ -398,25 +537,120 @@
     handleFiles(e.dataTransfer.files);
   });
 
-  // 가격 콤마
+  // ── 가격 콤마 ──
   function formatPrice(el) {
     const raw = el.value.replace(/[^0-9]/g, '');
     el.value = raw ? Number(raw).toLocaleString() : '';
   }
 
-  // AI 시작가 추천
-  const categoryAvg = { '주방기기': '150,000', '포장재': '30,000', '가구·인테리어': '80,000', '기타': '50,000' };
-  function suggestPrice() {
-    const name = document.getElementById('itemName').value.trim();
+  // ── 유사 거래 더미 데이터 ──
+  const similarData = {
+    '주방기기': [
+      { name: '업소용 냉장고 650L', price: '420,000원', days: '3일 전' },
+      { name: '업소용 에어컨 5마력', price: '175,000원', days: '5일 전' },
+      { name: '업소용 전기레인지', price: '95,000원',  days: '8일 전' },
+    ],
+    '포장재': [
+      { name: '단파지 박스 200개', price: '18,000원', days: '2일 전' },
+      { name: '에어캡 롤 100m',   price: '22,000원', days: '6일 전' },
+      { name: '택배 봉투 500장',  price: '12,000원', days: '10일 전' },
+    ],
+    '가구·인테리어': [
+      { name: '카페 테이블 4인용', price: '85,000원', days: '1일 전' },
+      { name: '포스기 받침대',     price: '32,000원', days: '4일 전' },
+      { name: '간판 철제 프레임', price: '45,000원', days: '7일 전' },
+    ],
+    '기타': [
+      { name: '영수증 프린터', price: '38,000원', days: '2일 전' },
+      { name: 'POS 단말기',   price: '62,000원', days: '5일 전' },
+      { name: '진열대 3단',   price: '28,000원', days: '9일 전' },
+    ],
+  };
+
+  function onCategoryChange() {
     const cat = document.getElementById('category').value;
-    const box = document.getElementById('aiPriceSuggestion');
-    const val = document.getElementById('aiPriceValue');
-    if (!name || !cat) { box.style.display = 'none'; return; }
-    val.textContent = categoryAvg[cat] || '50,000';
+    const box = document.getElementById('similarBox');
+    const list = document.getElementById('similarList');
+    if (!cat || !similarData[cat]) { box.style.display = 'none'; return; }
+    list.innerHTML = similarData[cat].map(d => `
+      <div class="similar-item">
+        <div class="similar-item-name">${d.name}</div>
+        <div class="similar-item-right">
+          <div class="similar-item-price">${d.price}</div>
+          <div class="similar-item-date">${d.days}</div>
+        </div>
+      </div>`).join('');
     box.style.display = 'block';
+    calcAiPrice();
   }
 
-  // 연락처 감지
+  // ── AI 시작가 계산 ──
+  const catBase = { '주방기기': 150000, '포장재': 30000, '가구·인테리어': 80000, '기타': 50000 };
+  const gradeRange = { A: [0.60, 0.70], B: [0.40, 0.50], C: [0.20, 0.30], D: [0.05, 0.10] };
+  let aiMin = 0, aiMax = 0;
+
+  function fmt(n) { return Math.round(n).toLocaleString(); }
+
+  function calcAiPrice() {
+    const cat = document.getElementById('category').value;
+    const name = document.getElementById('itemName').value.trim();
+    const gradeEl = document.querySelector('input[name="grade"]:checked');
+    const box = document.getElementById('aiBox');
+
+    if (!cat || !gradeEl) { box.style.display = 'none'; return; }
+
+    const base = catBase[cat] || 50000;
+    const [lo, hi] = gradeRange[gradeEl.value];
+    aiMin = base * lo;
+    aiMax = base * hi;
+
+    document.getElementById('aiPriceRange').innerHTML =
+      `${fmt(aiMin)}원 <span>~ ${fmt(aiMax)}원</span>`;
+    box.style.display = 'block';
+
+    checkPriceWarning();
+  }
+
+  function applyAiPrice() {
+    if (!aiMin) return;
+    const mid = Math.round((aiMin + aiMax) / 2);
+    const el = document.getElementById('startPrice');
+    el.value = mid.toLocaleString();
+    document.getElementById('priceWarning').style.display = 'none';
+    priceWarningDismissed = false;
+  }
+
+  // ── 가격 경고 ──
+  let priceWarningDismissed = false;
+
+  function onPriceInput(el) {
+    formatPrice(el);
+    priceWarningDismissed = false;
+    checkPriceWarning();
+  }
+
+  function checkPriceWarning() {
+    if (!aiMin || priceWarningDismissed) return;
+    const raw = document.getElementById('startPrice').value.replace(/[^0-9]/g, '');
+    const entered = parseInt(raw, 10);
+    const warn = document.getElementById('priceWarning');
+    if (!raw || isNaN(entered)) { warn.style.display = 'none'; return; }
+    warn.style.display = entered < aiMin * 0.7 ? 'block' : 'none';
+  }
+
+  function confirmLowPrice() {
+    priceWarningDismissed = true;
+    document.getElementById('priceWarning').style.display = 'none';
+  }
+
+  function editPrice() {
+    document.getElementById('priceWarning').style.display = 'none';
+    const el = document.getElementById('startPrice');
+    el.value = '';
+    el.focus();
+  }
+
+  // ── 연락처 감지 ──
   const CONTACT_RE = /(\d{2,4}[-\s]?\d{3,4}[-\s]?\d{4}|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|카카오|카톡|kakao|open\.kakao|톡아이디)/i;
   function checkContact() {
     const val = document.getElementById('desc').value;
@@ -427,7 +661,7 @@
     btn.disabled = hasContact;
   }
 
-  // 제출
+  // ── 제출 ──
   function handleSubmit(e) {
     e.preventDefault();
     const locs = [...document.querySelectorAll('.chip-option input:checked')].map(c => c.value);
